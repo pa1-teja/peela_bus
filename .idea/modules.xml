@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Map-master.iml" filepath="$PROJECT_DIR$/Map-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peela_bus.iml" filepath="$PROJECT_DIR$/peela_bus.iml" />
     </modules>
   </component>
 </project>
