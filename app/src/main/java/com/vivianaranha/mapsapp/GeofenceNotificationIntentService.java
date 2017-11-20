@@ -32,7 +32,7 @@ public class GeofenceNotificationIntentService extends IntentService {
   // region Constructors
 
   public GeofenceNotificationIntentService() {
-    super("GeofenceNotificationIntentService");
+    super("AreWeThereIntentService");
   }
 
   // endregion
@@ -58,8 +58,8 @@ public class GeofenceNotificationIntentService extends IntentService {
           if (transition == Geofence.GEOFENCE_TRANSITION_ENTER || transition == Geofence.GEOFENCE_TRANSITION_DWELL) {
             onEnteredGeofences(geofenceIds);
           }
-          else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT || transition == Geofence.GEOFENCE_TRANSITION_DWELL){
-            onExitingGeofences(geofenceIds);
+          if (transition == Geofence.GEOFENCE_TRANSITION_EXIT){
+            onExitGeofences(geofenceIds);
           }
         }
       }
@@ -70,7 +70,7 @@ public class GeofenceNotificationIntentService extends IntentService {
 
   // region Private
 
-  private void onEnteredGeofences(List<String> geofenceIds) {
+  private void onExitGeofences(List<String> geofenceIds) {
     for (String geofenceId : geofenceIds) {
       String geofenceName = "";
 
@@ -86,7 +86,7 @@ public class GeofenceNotificationIntentService extends IntentService {
       }
 
       // Set the notification text and send the notification
-      String contextText = String.format(this.getResources().getString(R.string.Notification_Text), geofenceName);
+      String contextText = String.format(this.getResources().getString(R.string.Notification_Text_exit), geofenceName);
 
       NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
       Intent intent = new Intent(this, AllGeofencesActivity.class);
@@ -107,7 +107,7 @@ public class GeofenceNotificationIntentService extends IntentService {
     }
   }
 
-  private void onExitingGeofences(List<String> geofenceIds) {
+  private void onEnteredGeofences(List<String> geofenceIds) {
     for (String geofenceId : geofenceIds) {
       String geofenceName = "";
 
@@ -123,7 +123,7 @@ public class GeofenceNotificationIntentService extends IntentService {
       }
 
       // Set the notification text and send the notification
-      String contextText = String.format(this.getResources().getString(R.string.Notification_Exit_Text), geofenceName);
+      String contextText = String.format(this.getResources().getString(R.string.Notification_Text), geofenceName);
 
       NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
       Intent intent = new Intent(this, AllGeofencesActivity.class);

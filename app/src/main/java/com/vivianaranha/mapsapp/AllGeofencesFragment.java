@@ -168,10 +168,10 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
     ActionButton actionButton;
 
     public void populate(View v) {
-      container = v.findViewById(R.id.fragment_all_geofences_container);
-      emptyState = v.findViewById(R.id.fragment_all_geofences_emptyState);
-      geofenceRecyclerView = v.findViewById(R.id.fragment_all_geofences_geofenceRecyclerView);
-      actionButton = v.findViewById(R.id.fragment_all_geofences_actionButton);
+      container = (ViewGroup) v.findViewById(R.id.fragment_all_geofences_container);
+      emptyState = (ViewGroup) v.findViewById(R.id.fragment_all_geofences_emptyState);
+      geofenceRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_all_geofences_geofenceRecyclerView);
+      actionButton = (ActionButton) v.findViewById(R.id.fragment_all_geofences_actionButton);
 
       actionButton.setImageResource(R.drawable.fab_plus_icon);
     }

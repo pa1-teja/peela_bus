@@ -29,7 +29,7 @@ public class AllGeofencesActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu, menu);
+    getMenuInflater().inflate(R.menu.menu_all_geofences, menu);
 
     MenuItem item = menu.findItem(R.id.action_delete_all);
 

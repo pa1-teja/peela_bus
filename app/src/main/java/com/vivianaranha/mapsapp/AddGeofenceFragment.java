@@ -1,9 +1,14 @@
 package com.vivianaranha.mapsapp;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddGeofenceFragment extends DialogFragment {
+  private static final int PERMISSION_LOCATION_REQUEST_CODE = 99;
 
   // region Properties
 
@@ -31,6 +37,20 @@ public class AddGeofenceFragment extends DialogFragment {
 
   // region Overrides
 
+  public static boolean checkPermission(final Context context) {
+    return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+  }
+
+  private void showPermissionDialog() {
+    if (!checkPermission(getContext())) {
+      ActivityCompat.requestPermissions(
+              getActivity(),
+              new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+              PERMISSION_LOCATION_REQUEST_CODE);
+    }
+  }
+
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -38,6 +58,10 @@ public class AddGeofenceFragment extends DialogFragment {
 
     viewHolder = new ViewHolder();
     viewHolder.populate(view);
+
+
+      showPermissionDialog();
+
 
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setView(view)
@@ -139,10 +163,10 @@ public class AddGeofenceFragment extends DialogFragment {
     EditText radiusEditText;
 
     public void populate(View v) {
-      nameEditText = v.findViewById(R.id.fragment_add_geofence_name);
-      latitudeEditText = v.findViewById(R.id.fragment_add_geofence_latitude);
-      longitudeEditText = v.findViewById(R.id.fragment_add_geofence_longitude);
-      radiusEditText = v.findViewById(R.id.fragment_add_geofence_radius);
+      nameEditText = (EditText) v.findViewById(R.id.fragment_add_geofence_name);
+      latitudeEditText = (EditText) v.findViewById(R.id.fragment_add_geofence_latitude);
+      longitudeEditText = (EditText) v.findViewById(R.id.fragment_add_geofence_longitude);
+      radiusEditText = (EditText) v.findViewById(R.id.fragment_add_geofence_radius);
 
       latitudeEditText.setHint(String.format(v.getResources().getString(R.string.Hint_Latitude), Constants.Geometry.MinLatitude, Constants.Geometry.MaxLatitude));
       longitudeEditText.setHint(String.format(v.getResources().getString(R.string.Hint_Longitude), Constants.Geometry.MinLongitude, Constants.Geometry.MaxLongitude));

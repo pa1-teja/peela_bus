@@ -1,5 +1,6 @@
 package com.vivianaranha.mapsapp;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -133,7 +134,6 @@ public class GeofenceController {
     geofencesToAdd.add(geofenceToAdd);
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
     builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
-    builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_EXIT);
     builder.addGeofences(geofencesToAdd);
     return builder.build();
   }
@@ -180,29 +180,24 @@ public class GeofenceController {
     public void onConnected(Bundle bundle) {
       Intent intent = new Intent(context, GeofenceNotificationIntentService.class);
       PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-      if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        // TODO: Consider calling
-        //    ActivityCompat#requestPermissions
-        // here to request the missing permissions, and then overriding
-        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-        //                                          int[] grantResults)
-        // to handle the case where the user grants the permission. See the documentation
-        // for ActivityCompat#requestPermissions for more details.
-        return;
-      }
-      PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(googleApiClient,
-              getAddGeofencingRequest(), pendingIntent);
-      result.setResultCallback(new ResultCallback<Status>() {
-        @Override
-        public void onResult(Status status) {
-          if (status.isSuccess()) {
-            saveGeofence();
-          } else {
-            Log.e(TAG, "Registering geofence failed: " + status.getStatusMessage() + " : " + status.getStatusCode());
-            sendError();
+      if (checkPermission(context)) {
+        PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(googleApiClient, getAddGeofencingRequest(), pendingIntent);
+        result.setResultCallback(new ResultCallback<Status>() {
+          @Override
+          public void onResult(Status status) {
+            if (status.isSuccess()) {
+              saveGeofence();
+            } else {
+              Log.e(TAG, "Registering geofence failed: " + status.getStatusMessage() + " : " + status.getStatusCode());
+              sendError();
+            }
           }
-        }
-      });
+        });
+      }
+    }
+    public boolean checkPermission(final Context context) {
+      return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+              && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override

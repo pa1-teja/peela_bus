@@ -101,11 +101,11 @@ public class AllGeofencesAdapter extends RecyclerView.Adapter<AllGeofencesAdapte
     public ViewHolder(ViewGroup v) {
       super(v);
 
-      name = v.findViewById(R.id.listitem_geofenceName);
-      latitide = v.findViewById(R.id.listitem_geofenceLatitude);
-      longitude = v.findViewById(R.id.listitem_geofenceLongitude);
-      radius = v.findViewById(R.id.listitem_geofenceRadius);
-      deleteButton = v.findViewById(R.id.listitem_deleteButton);
+      name = (TextView) v.findViewById(R.id.listitem_geofenceName);
+      latitide = (TextView) v.findViewById(R.id.listitem_geofenceLatitude);
+      longitude = (TextView) v.findViewById(R.id.listitem_geofenceLongitude);
+      radius = (TextView) v.findViewById(R.id.listitem_geofenceRadius);
+      deleteButton = (Button) v.findViewById(R.id.listitem_deleteButton);
     }
   }
 
