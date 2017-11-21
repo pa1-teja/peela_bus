@@ -33,7 +33,7 @@ public class GeofenceNotificationIntentService extends IntentService {
   // region Constructors
 
   public GeofenceNotificationIntentService() {
-    super("AreWeThereIntentService");
+    super("GeofenceNotificationIntentService");
   }
 
   // endregion

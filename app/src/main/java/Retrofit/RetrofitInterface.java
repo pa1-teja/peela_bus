@@ -1,5 +1,7 @@
 package Retrofit;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -10,6 +12,6 @@ import retrofit2.http.GET;
 public interface RetrofitInterface {
 
     @GET("/WebService.asmx/LiveTracking")
-    Call<Result> RESULT_CALL();
+    Call<BusInfo> RESULT_CALL();
 
 }

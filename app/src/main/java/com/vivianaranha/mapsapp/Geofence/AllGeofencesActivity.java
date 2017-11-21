@@ -10,6 +10,10 @@ import android.widget.Toast;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.vivianaranha.mapsapp.R;
 
+import java.util.List;
+
+import Retrofit.APIUtils;
+import Retrofit.BusInfo;
 import Retrofit.Result;
 import Retrofit.RetrofitInterface;
 import retrofit2.Call;
@@ -37,25 +41,32 @@ private RetrofitInterface retrofitInterface;
   }
   
   public void getJSONResponse(){
-    retrofitInterface.RESULT_CALL().enqueue(new Callback<Result>() {
-
+    retrofitInterface = APIUtils.getRetrofitService();
+    retrofitInterface.RESULT_CALL().enqueue(new Callback<BusInfo>() {
       @Override
-      public void onResponse(Call<Result> call, Response<Result> response) {
+      public void onResponse(Call<BusInfo> call, Response<BusInfo> response) {
         if (response.isSuccessful()){
+          Log.d("====D", "Response : " + response.body());
           NamedGeofence namedGeofence = new NamedGeofence();
-          namedGeofence.id = String.valueOf(response.body().getId());
-          namedGeofence.name = response.body().getBusid(); // TODO: School Name from JSON Response would be better I think.
-          namedGeofence.latitude = Double.parseDouble(response.body().getLAT());
-          namedGeofence.longitude = Double.parseDouble(response.body().getLONG());
+
+          List<Result> results = response.body().getResult();
+
+          for (Result result: results) {
+
+            namedGeofence.id = String.valueOf(result.getId());
+            namedGeofence.name = result.getBusid(); // TODO: School Name from JSON Response would be better I think.
+            namedGeofence.latitude = Double.parseDouble(result.getLAT());
+            namedGeofence.longitude = Double.parseDouble(result.getLONG());
+          }
         }
       }
 
       @Override
-      public void onFailure(Call<Result> call, Throwable t) {
-        Log.d(getLocalClassName().toString(),"error msg : " + t.getMessage());
-        Toast.makeText(getApplicationContext(),"Unable to load the information from the server. Please try again after some time", Toast.LENGTH_SHORT)
-                .show();
+      public void onFailure(Call<BusInfo> call, Throwable t) {
+        Log.d(getLocalClassName(),"JSON error message : " + t.getMessage());
 
+        Toast.makeText(getApplicationContext(),"Unable to retrieve info from the server. Please try again later",Toast.LENGTH_SHORT)
+                .show();
       }
     });
   }
