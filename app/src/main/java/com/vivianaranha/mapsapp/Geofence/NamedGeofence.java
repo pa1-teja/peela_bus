@@ -1,4 +1,4 @@
-package com.vivianaranha.mapsapp;
+package com.vivianaranha.mapsapp.Geofence;
 
 import android.support.annotation.NonNull;
 

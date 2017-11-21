@@ -1,4 +1,4 @@
-package com.vivianaranha.mapsapp;
+package com.vivianaranha.mapsapp.Geofence;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.google.gson.Gson;
+import com.vivianaranha.mapsapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

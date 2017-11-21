@@ -1,7 +1,6 @@
-package com.vivianaranha.mapsapp;
+package com.vivianaranha.mapsapp.Geofence;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.vivianaranha.mapsapp.R;
 
 public class AddGeofenceFragment extends DialogFragment {
   private static final int PERMISSION_LOCATION_REQUEST_CODE = 99;

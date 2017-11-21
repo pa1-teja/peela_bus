@@ -1,4 +1,4 @@
-package com.vivianaranha.mapsapp;
+package com.vivianaranha.mapsapp.Geofence;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.software.shell.fab.ActionButton;
+import com.vivianaranha.mapsapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

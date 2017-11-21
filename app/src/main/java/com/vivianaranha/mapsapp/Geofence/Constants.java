@@ -1,4 +1,4 @@
-package com.vivianaranha.mapsapp;
+package com.vivianaranha.mapsapp.Geofence;
 
 public class Constants {
 
