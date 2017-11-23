@@ -1,11 +1,16 @@
 package com.vivianaranha.mapsapp.Geofence;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,11 +23,22 @@ import com.vivianaranha.mapsapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllGeofencesFragment extends Fragment implements AddGeofenceFragment.AddGeofenceFragmentListener {
+import Retrofit.APIUtils;
+import Retrofit.BusInfo;
+import Retrofit.Result;
+import Retrofit.RetrofitInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AllGeofencesFragment extends Fragment {
 
   // region Properties
 
   private ViewHolder viewHolder;
+  private static int PERMISSION_LOCATION_REQUEST_CODE = 1;
+  private RetrofitInterface retrofitInterface;
+  private NamedGeofence namedGeofence;
 
   private ViewHolder getViewHolder() {
     return viewHolder;
@@ -40,6 +56,21 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
     setHasOptionsMenu(true);
   }
 
+
+  public static boolean checkPermission(final Context context) {
+    return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+  }
+
+  private void showPermissionDialog() {
+    if (!checkPermission(getContext())) {
+      ActivityCompat.requestPermissions(
+              getActivity(),
+              new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+              PERMISSION_LOCATION_REQUEST_CODE);
+    }
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_all_geofences, container, false);
@@ -53,7 +84,12 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
 
     getViewHolder().populate(view);
 
+    showPermissionDialog();
+
     viewHolder.geofenceRecyclerView.setHasFixedSize(true);
+
+      namedGeofence = new NamedGeofence();
+      getJSONResponse();
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
     viewHolder.geofenceRecyclerView.setLayoutManager(layoutManager);
@@ -69,16 +105,48 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
       }
     });
 
-    viewHolder.actionButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        AddGeofenceFragment dialogFragment = new AddGeofenceFragment();
-        dialogFragment.setListener(AllGeofencesFragment.this);
-        dialogFragment.show(getActivity().getSupportFragmentManager(), "AddGeofenceFragment");
-      }
-    });
+//    viewHolder.actionButton.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        AddGeofenceFragment dialogFragment = new AddGeofenceFragment();
+//        dialogFragment.setListener(AllGeofencesFragment.this);
+//        dialogFragment.show(getActivity().getSupportFragmentManager(), "AddGeofenceFragment");
+//      }
+//    });
 
     refresh();
+  }
+
+  public void getJSONResponse(){
+    retrofitInterface = APIUtils.getRetrofitService();
+    retrofitInterface.RESULT_CALL().enqueue(new Callback<BusInfo>() {
+      @Override
+      public void onResponse(Call<BusInfo> call, Response<BusInfo> response) {
+        if (response.isSuccessful()){
+          Log.d("====D", "Response : " + response.body());
+
+          List<Result> results = response.body().getResult();
+
+          for (Result result: results) {
+
+            namedGeofence.id = String.valueOf(result.getId());
+            namedGeofence.name = result.getBusid(); // TODO: School Name from JSON Response would be better I think.
+            namedGeofence.latitude = Double.parseDouble(result.getLAT());
+            namedGeofence.longitude = Double.parseDouble(result.getLONG());
+            namedGeofence.radius = 2000;// TODO: This is a hard coded value, please think about how you can handle the radius part.
+          }
+          GeofenceController.getInstance().addGeofence(namedGeofence, geofenceControllerListener);
+        }
+      }
+
+      @Override
+      public void onFailure(Call<BusInfo> call, Throwable t) {
+        Log.d(getTag(),"JSON error message : " + t.getMessage());
+
+        Toast.makeText(getActivity(),"Unable to retrieve info from the server. Please try again later",Toast.LENGTH_SHORT)
+                .show();
+      }
+    });
   }
 
   @Override
@@ -148,15 +216,6 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
 
   // region AddGeofenceFragmentListener
 
-  @Override
-  public void onDialogPositiveClick(android.support.v4.app.DialogFragment dialog, NamedGeofence geofence) {
-    GeofenceController.getInstance().addGeofence(geofence, geofenceControllerListener);
-  }
-
-  @Override
-  public void onDialogNegativeClick(android.support.v4.app.DialogFragment dialog) {
-    // Do nothing
-  }
 
   // endregion
 

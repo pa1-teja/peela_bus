@@ -1,5 +1,6 @@
 package com.vivianaranha.mapsapp.Geofence;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.vivianaranha.mapsapp.Geofence.AppSettings.SettingsActivity;
 import com.vivianaranha.mapsapp.R;
 
 import java.util.List;
@@ -30,46 +32,17 @@ private RetrofitInterface retrofitInterface;
     setContentView(R.layout.activity_all_geofences);
 
     setTitle(R.string.app_title);
-//    if (savedInstanceState == null) {
-//      getSupportFragmentManager().beginTransaction()
-//              .add(R.id.container, new AllGeofencesFragment())
-//              .commit();
-//    }
-
     GeofenceController.getInstance().init(this);
-    getJSONResponse();
+
+    if (savedInstanceState == null) {
+      getSupportFragmentManager().beginTransaction()
+              .add(R.id.container, new AllGeofencesFragment())
+              .commit();
+    }
+
   }
   
-  public void getJSONResponse(){
-    retrofitInterface = APIUtils.getRetrofitService();
-    retrofitInterface.RESULT_CALL().enqueue(new Callback<BusInfo>() {
-      @Override
-      public void onResponse(Call<BusInfo> call, Response<BusInfo> response) {
-        if (response.isSuccessful()){
-          Log.d("====D", "Response : " + response.body());
-          NamedGeofence namedGeofence = new NamedGeofence();
 
-          List<Result> results = response.body().getResult();
-
-          for (Result result: results) {
-
-            namedGeofence.id = String.valueOf(result.getId());
-            namedGeofence.name = result.getBusid(); // TODO: School Name from JSON Response would be better I think.
-            namedGeofence.latitude = Double.parseDouble(result.getLAT());
-            namedGeofence.longitude = Double.parseDouble(result.getLONG());
-          }
-        }
-      }
-
-      @Override
-      public void onFailure(Call<BusInfo> call, Throwable t) {
-        Log.d(getLocalClassName(),"JSON error message : " + t.getMessage());
-
-        Toast.makeText(getApplicationContext(),"Unable to retrieve info from the server. Please try again later",Toast.LENGTH_SHORT)
-                .show();
-      }
-    });
-  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,7 +53,13 @@ private RetrofitInterface retrofitInterface;
     if (GeofenceController.getInstance().getNamedGeofences().size() == 0) {
       item.setVisible(false);
     }
+    return true;
+  }
 
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.settings_screen)
+      startActivity(new Intent(this,SettingsActivity.class));
     return true;
   }
 

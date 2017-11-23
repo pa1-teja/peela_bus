@@ -7,4 +7,10 @@
       android:title="@string/action_delete_all"
       android:orderInCategory="100"
       app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/settings_screen"
+    android:title="Settings"
+    android:orderInCategory="100"
+    app:showAsAction="never"/>
 </menu>
