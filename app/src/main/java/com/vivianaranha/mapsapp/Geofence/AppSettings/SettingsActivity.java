@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -27,6 +30,7 @@ import android.widget.Switch;
 
 import com.vivianaranha.mapsapp.R;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,16 +70,68 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         vibration_1 =  findViewById(R.id.vibration_1);
+
+        vibration_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkVibration_1(view);
+            }
+        });
+
         vibration_2 = findViewById(R.id.vibration_2);
+        vibration_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkVibration_2(view);
+            }
+        });
         Sound_1 = findViewById(R.id.sound_1);
+        Sound_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkSound_1(view);
+            }
+        });
         Sound_2 = findViewById(R.id.sound_2);
 
+        Sound_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkSound_2(view);
+            }
+        });
 
     }
 
     public void checkSound_2(View view){
         if (Sound_1.isChecked()){
-            // TODO: Vibrate device and set preference.
+            // TODO: Ring the device and set preference.
+            Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            MediaPlayer mediaPlayer = new MediaPlayer();
+
+            try {
+                mediaPlayer.setDataSource(this, defaultRingtoneUri);
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+                mediaPlayer.prepare();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp)
+                    {
+                        mp.release();
+                    }
+                });
+                mediaPlayer.start();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } else {
             // TODO: remove preference
@@ -85,6 +141,8 @@ public class SettingsActivity extends AppCompatActivity {
     public void checkVibration_1(View view){
         if (vibration_1.isChecked()){
       // TODO: Vibrate device and set preference.
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(200);
     } else {
         // TODO: remove preference
     }
@@ -94,7 +152,8 @@ public class SettingsActivity extends AppCompatActivity {
     public void checkVibration_2(View view){
         if (vibration_2.isChecked()){
             // TODO: Vibrate device and set preference.
-            SchoolToHomeVibrationPref =
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(200);
         } else {
             // TODO: remove preference
         }
@@ -102,7 +161,33 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void checkSound_1(View view){
         if (Sound_1.isChecked()){
-            // TODO: Vibrate device and set preference.
+            // TODO: Ring device and set preference.
+            Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            MediaPlayer mediaPlayer = new MediaPlayer();
+
+            try {
+                mediaPlayer.setDataSource(this, defaultRingtoneUri);
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+                mediaPlayer.prepare();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp)
+                    {
+                        mp.release();
+                    }
+                });
+                mediaPlayer.start();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             // TODO: remove preference
         }
