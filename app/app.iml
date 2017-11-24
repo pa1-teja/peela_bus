@@ -130,6 +130,7 @@
     <orderEntry type="library" exported="" name="android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-compat-27.0.1" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-core-ui-27.0.1" level="project" />
+    <orderEntry type="library" exported="" name="com.android.support:preference-v7-27.0.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-media-compat-27.0.1" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-fragment-27.0.1" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-v4-27.0.1" level="project" />

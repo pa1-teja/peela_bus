@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:id="@+id/mobile_vibration"
+        android:title="@string/pref_title_vibrate"
+        android:key="@string/pref_vibrate_key"
+        android:defaultValue="true"
+        android:icon="@drawable/vibration_icon"/>
+
+    <SwitchPreference
+        android:id="@+id/mobile_sound"
+        android:title="@string/pref_title_sound"
+        android:icon="@drawable/sound_icon"
+        android:key="@string/pref_sound_key"
+        android:defaultValue="true" />
+
+
+</PreferenceScreen>
