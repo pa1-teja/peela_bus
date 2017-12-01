@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vivianaranha.mapsapp.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/ColorAccent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:id="@+id/card_1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="12dp"
+        android:elevation="8dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/header"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pickup"
+                android:textColor="#fff"
+                android:padding="4dp"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:id="@+id/text_header_1"
+                android:textStyle="bold"
+                android:background="@color/fab_material_blue_500"/>
+        </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pickup Location"
+                android:id="@+id/pick_up_text_header"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ColorAccent"
+                android:layout_below="@id/header"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"/>
+            
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_text_header"
+                android:id="@+id/pick_up_input"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"
+                android:hint="Location"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_input"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/ColorAccent"
+                android:id="@+id/pick_up_alerts_header"
+                android:textStyle="bold"
+                android:text="Get Alerts Before"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/mins_5_pickup_alert"
+                android:text="05 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/mins_5_pickup_alert"
+                android:id="@+id/mins_15_pickup_alert"
+                android:text="15 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/mins_15_pickup_alert"
+                android:id="@+id/mins_20_pickup_alert"
+                android:text="20 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/card_2"
+        android:layout_below="@id/card_1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="12dp"
+        android:elevation="8dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_2"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dropping"
+                    android:textColor="#fff"
+                    android:padding="4dp"
+                    android:textSize="20sp"
+                    android:textAllCaps="true"
+                    android:id="@+id/text_header_2"
+                    android:textStyle="bold"
+                    android:background="@color/fab_material_blue_500"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pickup Location"
+                android:id="@+id/drop_point_text_header"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ColorAccent"
+                android:layout_below="@id/header_2"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drop_point_text_header"
+                android:id="@+id/drop_point_input"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"
+                android:hint="Location"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drop_point_input"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/ColorAccent"
+                android:id="@+id/drop_point_alerts_header"
+                android:textStyle="bold"
+                android:text="Get Alerts Before"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drop_point_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/mins_5_drop_alert"
+                android:text="05 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drop_point_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/mins_5_drop_alert"
+                android:id="@+id/mins_15_drop_alert"
+                android:text="15 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drop_point_alerts_header"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/mins_15_drop_alert"
+                android:id="@+id/mins_20_drop_alert"
+                android:text="20 mins"
+                android:textColor="@color/fab_material_grey_500"
+                android:textStyle="bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

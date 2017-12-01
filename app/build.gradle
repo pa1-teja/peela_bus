@@ -25,12 +25,13 @@ android {
 
 
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-location:9.0.1'
+    compile 'com.google.android.gms:play-services-location:11.6.0'
     compile 'com.github.shell-software:fab:1.0.5'
     compile 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.android.support:support-v4:27.0.1'
@@ -43,4 +44,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.android.support:preference-v7:27.0.0'
+    compile 'com.google.firebase:firebase-messaging:11.6.0'
+    compile 'com.firebase:firebase-jobdispatcher:0.8.5'
 }

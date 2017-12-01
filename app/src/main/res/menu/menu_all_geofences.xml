@@ -13,4 +13,10 @@
     android:title="Settings"
     android:orderInCategory="100"
     app:showAsAction="never"/>
+
+  <item
+      android:id="@+id/pick_drop"
+      android:title="Pick and Drop"
+      android:orderInCategory="100"
+      app:showAsAction="never"/>
 </menu>

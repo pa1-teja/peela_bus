@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.vivianaranha.mapsapp.Geofence.AppSettings.SettingsActivity;
+import com.vivianaranha.mapsapp.MainActivity;
 import com.vivianaranha.mapsapp.R;
 
 import java.util.List;
@@ -60,6 +61,8 @@ private RetrofitInterface retrofitInterface;
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.settings_screen)
       startActivity(new Intent(this,SettingsActivity.class));
+    if (item.getItemId() == R.id.pick_drop)
+      startActivity(new Intent(this, MainActivity.class));
     return true;
   }
 
