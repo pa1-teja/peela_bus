@@ -61,8 +61,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vivianaranha.mapsapp.Geofence.AllGeofencesActivity" />
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".BusNotificationsActivity"></activity>
     </application>
 
 </manifest>
